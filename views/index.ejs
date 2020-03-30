@@ -4,9 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>mongodb</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    a{
+      text-decoration: none;
+      color: #198afa;
+    }
+    .center{
+      text-align: center;
+    }
+    .right{
+      text-align: right;
+      padding-right: 30px;
+    }
+    .item{
+      padding: 20px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+  </style>
 </head>
 <body>
-  <h1>数据库</h1>
-  
+  <h3 class="center">数据库</h3>
+  <p class="right">
+    <% for(var i = 0; i*10 < json.count; i++){ %>
+      <a href="/?page=<%= i %>"><%= i+1 %></a>
+    <% } %>
+  </p>
+  <div class="box">
+    <% for( var i = 0 ; i < json.list.length ; i++ ){ %>
+      <div class="item">
+        <div>姓名： <%= json.list[i].name %></div>
+        <div>年龄： <%= json.list[i].age %></div>
+        <div>编号： <%= json.list[i].count %></div>
+      </div>
+    <% } %>
+  </div>
+  <p class="right">一共有 <%= json.count%> 条数据</p>
+  <p><a href="/add">添加数据</a></p>
 </body>
 </html>
