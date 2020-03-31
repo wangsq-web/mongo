@@ -10,8 +10,13 @@
       padding: 0;
     }
     a{
+      display: inline-block;
       text-decoration: none;
       color: #198afa;
+      line-height: 24px;
+      padding: 0 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
     .center{
       text-align: center;
@@ -29,8 +34,8 @@
 <body>
   <h3 class="center">数据库</h3>
   <p class="right">
-    <% for(var i = 0; i*10 < json.count; i++){ %>
-      <a href="/?page=<%= i %>"><%= i+1 %></a>
+    <% for(var i = 0; i*limit < json.count; i++){ %>
+      <a href="/?limit=<%= limit %>&page=<%= i %>"><%= i+1 %></a>
     <% } %>
   </p>
   <div class="box">
@@ -39,6 +44,7 @@
         <div>姓名： <%= json.list[i].name %></div>
         <div>年龄： <%= json.list[i].age %></div>
         <div>编号： <%= json.list[i].count %></div>
+        <div>时间： <%= json.list[i].dateTime %></div>
       </div>
     <% } %>
   </div>

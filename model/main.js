@@ -45,7 +45,8 @@ exports.find = function(dbname,collectionName,json,c,d){
     var limit = args.pageamount
   }else{
     throw new Error("find函数参数不对");
-    return
+    client.close();
+    return;
   }
 
   // if(arguments.length != 5){
@@ -61,10 +62,11 @@ exports.find = function(dbname,collectionName,json,c,d){
     // var skipnumber = args.pageamount * args.page;
     // var limit = args.pageamount
     
-    var cursor = db.collection(collectionName).find(json).skip(skipnumber).limit(limit);
+    var cursor = db.collection(collectionName).find(json).skip(skipnumber).limit(limit).sort({"dateTime": -1});
     cursor.each( (err,doc) => {
       if(err){
         callback(err,null);
+        client.close();
         return;
       }
       if(doc != null){
@@ -80,6 +82,9 @@ exports.find = function(dbname,collectionName,json,c,d){
             "list": list
           }
           callback(null,result);
+          client.close();
+        }).catch( err =>{
+          callback("获取数据总条数失败",null);
           client.close();
         });
         

@@ -3,6 +3,7 @@ var app = express();
 var db = require('./model/main.js');
 
 var i = 0;
+var nameList = ['小明','小蓝','小刚','小红','小白'];
 
 app.set("view engine","ejs");
 app.use(express.static("./public"));
@@ -20,14 +21,16 @@ app.get("/",function(req,res){
     console.log(result)
     // res.json(result);
     res.render("index",{
-      "json": result
+      "json": result,
+      "limit": limit
     })
   })
 })
 
 app.get("/add",function(req,res){
   var dbname = 'test';
-  db.insertOne(dbname,"teacher",{"name":"小明","count": i++,"age": parseInt(Math.random()*100)},function(err,result){
+  
+  db.insertOne(dbname,"teacher",{"name": nameList[parseInt(Math.random()*nameList.length)],"count": i++,"age": parseInt(Math.random()*100),"dateTime": new Date().getTime()},function(err,result){
     if(err){
       console.log("添加失败")
       return;
